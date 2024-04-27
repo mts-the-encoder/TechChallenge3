@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
-namespace AlbumMS.Entities;
+namespace MusicMS.Entities;
 
 public class AppDbContext : DbContext
 {

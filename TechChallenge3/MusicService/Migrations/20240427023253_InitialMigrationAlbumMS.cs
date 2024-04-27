@@ -3,16 +3,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace MusicService.Migrations
+namespace AlbumMS.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class InitialMigrationAlbumMS : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Musics",
+                name: "Albums",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -22,7 +22,7 @@ namespace MusicService.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Musics", x => x.Id);
+                    table.PrimaryKey("PK_Albums", x => x.Id);
                 });
         }
 
@@ -30,7 +30,7 @@ namespace MusicService.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Musics");
+                name: "Albums");
         }
     }
 }

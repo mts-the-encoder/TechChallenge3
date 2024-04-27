@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MusicMS.Entities;
+namespace AlbumMS.Entities;
 
 public class AppDbContext : DbContext
 {
@@ -8,5 +8,5 @@ public class AppDbContext : DbContext
 	{
 	}
 
-	public DbSet<Music> Musics { get; set; }
+	public DbSet<Album> Albums { get; set; }
 }

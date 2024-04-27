@@ -1,7 +1,7 @@
-﻿using AlbumMS.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using MusicMS.Entities;
 
-namespace AlbumMS.Services.AlbumServices;
+namespace MusicMS.Services.AlbumServices;
 
 public class AlbumService : IAlbumService
 {

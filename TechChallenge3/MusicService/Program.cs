@@ -1,6 +1,6 @@
+using AlbumMS.Entities;
+using AlbumMS.Services;
 using Microsoft.EntityFrameworkCore;
-using MusicMS.Entities;
-using MusicMS.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContextPool<AppDbContext>(opt => opt.UseSqlServer(connection));
 
-builder.Services.AddScoped<IMusicService, MusicMS.Services.MusicService>();
+builder.Services.AddScoped<IAlbumService, AlbumService>();
 
 var app = builder.Build();
 

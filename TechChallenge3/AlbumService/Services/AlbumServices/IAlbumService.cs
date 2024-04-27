@@ -1,6 +1,6 @@
-﻿using AlbumMS.Entities;
+﻿using MusicMS.Entities;
 
-namespace AlbumMS.Services.AlbumServices;
+namespace MusicMS.Services.AlbumServices;
 
 public interface IAlbumService
 {

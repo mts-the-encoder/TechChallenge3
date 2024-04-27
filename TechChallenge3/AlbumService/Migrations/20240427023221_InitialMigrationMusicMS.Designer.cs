@@ -9,11 +9,11 @@ using MusicMS.Entities;
 
 #nullable disable
 
-namespace MusicService.Migrations
+namespace MusicMS.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240426024001_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240427023221_InitialMigrationMusicMS")]
+    partial class InitialMigrationMusicMS
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace MusicService.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("MusicService.Entities.Music", b =>
+            modelBuilder.Entity("AlbumMS.Entities.Album", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -37,13 +37,43 @@ namespace MusicService.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Title")
+                    b.HasKey("Id");
+
+                    b.ToTable("Albums");
+                });
+
+            modelBuilder.Entity("AlbumMS.Entities.Music", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AlbumId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Artist")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("AlbumId");
+
                     b.ToTable("Musics");
+                });
+
+            modelBuilder.Entity("AlbumMS.Entities.Music", b =>
+                {
+                    b.HasOne("AlbumMS.Entities.Album", "Album")
+                        .WithMany()
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Album");
                 });
 #pragma warning restore 612, 618
         }

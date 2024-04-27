@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MusicMS.Entities;
 
-namespace MusicMS.Services;
+namespace MusicMS.Services.MusicServices;
 
 public class MusicService : IMusicService
 {
@@ -20,8 +20,16 @@ public class MusicService : IMusicService
 		return music;
 	}
 
-	public Music GetById(string id)
+	public async Task<IEnumerable<Music>> GetByAlbumId(string id)
 	{
-		return _context.Musics.AsNoTracking().SingleOrDefault(x => x.Id.Equals(id));
+		return await _context.Musics
+			.AsNoTracking()
+			.Where(x => x.Id.Equals(id))
+			.ToListAsync();
+	}
+
+	public async Task<Album> ExistAlbum(string id)
+	{
+		return await _context.Albums.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
 	}
 }
