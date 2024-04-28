@@ -24,7 +24,7 @@ public class MusicService : IMusicService
 	{
 		return await _context.Musics
 			.AsNoTracking()
-			.Where(x => x.Id.Equals(id))
+			.Where(x => x.AlbumId.Equals(id))
 			.ToListAsync();
 	}
 

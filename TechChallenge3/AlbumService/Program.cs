@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MusicMS.Entities;
+using MusicMS.EventProcessing.AlbumProcessor;
+using MusicMS.MusicBackgroundService.AlbumBackgroundProcessor;
 using MusicMS.Services.AlbumServices;
 using MusicMS.Services.MusicServices;
 
@@ -17,6 +19,9 @@ builder.Services.AddDbContextPool<AppDbContext>(opt => opt.UseSqlServer(connecti
 
 builder.Services.AddScoped<IAlbumService, AlbumService>();
 builder.Services.AddScoped<IMusicService, MusicService>();
+
+builder.Services.AddSingleton<IAddEventProcessor, AddEventProcessor>();
+builder.Services.AddHostedService<AlbumMessageSubscriber>();
 
 var app = builder.Build();
 

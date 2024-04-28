@@ -12,8 +12,8 @@ using MusicMS.Entities;
 namespace MusicMS.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240427023221_InitialMigrationMusicMS")]
-    partial class InitialMigrationMusicMS
+    [Migration("20240428192341_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace MusicMS.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AlbumMS.Entities.Album", b =>
+            modelBuilder.Entity("MusicMS.Entities.Album", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -42,7 +42,7 @@ namespace MusicMS.Migrations
                     b.ToTable("Albums");
                 });
 
-            modelBuilder.Entity("AlbumMS.Entities.Music", b =>
+            modelBuilder.Entity("MusicMS.Entities.Music", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -58,6 +58,10 @@ namespace MusicMS.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AlbumId");
@@ -65,9 +69,9 @@ namespace MusicMS.Migrations
                     b.ToTable("Musics");
                 });
 
-            modelBuilder.Entity("AlbumMS.Entities.Music", b =>
+            modelBuilder.Entity("MusicMS.Entities.Music", b =>
                 {
-                    b.HasOne("AlbumMS.Entities.Album", "Album")
+                    b.HasOne("MusicMS.Entities.Album", "Album")
                         .WithMany()
                         .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -1,4 +1,5 @@
 using AlbumMS.Entities;
+using AlbumMS.ServiceBus;
 using AlbumMS.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,8 @@ var connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContextPool<AppDbContext>(opt => opt.UseSqlServer(connection));
 
 builder.Services.AddScoped<IAlbumService, AlbumService>();
+
+builder.Services.AddScoped<IAlbumServiceBus, AlbumServiceBus>();
 
 var app = builder.Build();
 

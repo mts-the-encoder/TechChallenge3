@@ -1,4 +1,5 @@
 ﻿using AlbumMS.Entities;
+using AlbumMS.ServiceBus;
 using AlbumMS.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,13 +7,15 @@ namespace AlbumMS.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class AController : ControllerBase
+public class AlbumController : ControllerBase
 {
 	private readonly IAlbumService _service;
+	private readonly IAlbumServiceBus _serviceBus;
 
-	public AController(IAlbumService service)
+	public AlbumController(IAlbumService service, IAlbumServiceBus serviceBus)
 	{
 		_service = service;
+		_serviceBus = serviceBus;
 	}
 
 	[HttpPost]
@@ -20,9 +23,12 @@ public class AController : ControllerBase
 	{
 		var response = await _service.Add(album);
 
-		return response is not null
-			? Ok(response)
-			: BadRequest("Error on request");
+		if (response is not null)
+		{
+			_serviceBus.PublishNewAlbum(response);
+			return Ok(response);
+		}
+		return BadRequest("Error on request");
 	}
 
 	[HttpGet]
