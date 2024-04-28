@@ -25,10 +25,8 @@ public class AlbumServiceBus : IAlbumServiceBus
 			_channel.ExchangeDeclare("AlbumExchange", ExchangeType.Direct);
 			_queueName = "Album";
 
-			// Declare a fila explicitamente
 			_channel.QueueDeclare(_queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
 
-			// Vincule a fila ao exchange
 			_channel.QueueBind(_queueName, "AlbumExchange", "AlbumKey");
 
 			_connection.ConnectionShutdown += _connection_ConnectionShutdown;

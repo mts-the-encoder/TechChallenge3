@@ -38,8 +38,6 @@ public class AlbumMessageSubscriber : BackgroundService
 		return Task.CompletedTask;
 	}
 
-	//ta quebrando ali no meio, ja meti o erro lpa no stack, pesquisar e ver como resolver isso
-
 	private void InitializeRabbitMq()
 	{
 		var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672 };
@@ -51,10 +49,8 @@ public class AlbumMessageSubscriber : BackgroundService
 			_channel.ExchangeDeclare("AlbumExchange", ExchangeType.Direct);
 			_queueName = "Album";
 
-			// Declare a fila explicitamente
 			_channel.QueueDeclare(_queueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
 
-			// Vincule a fila ao exchange
 			_channel.QueueBind(_queueName, "AlbumExchange", "AlbumKey");
 
 			_connection.ConnectionShutdown += _connection_ConnectionShutdown;
